@@ -57,7 +57,7 @@ services:
 
 We recommend you use a reverse proxy (eg, Traefik) to handle SSL certificates.
 
-If you're happy with a self-signed certificate, you can specify `-e
+If you're happy with a self-signed SSL certificate, specify `-e
 SSL_CERT=selfsigned` and the container will generate one for you.
 
 ```
@@ -69,8 +69,9 @@ docker run --restart always -v /srv/dav:/var/lib/dav \
 
 ### Authenticate multiple clients
 
-Specifying `USERNAME` and `PASSWORD` only supports a single user. Bind mount
-your own file to `/user.passwd` and the container will use that instead.
+Specifying `USERNAME` and `PASSWORD` only supports a single user. If you want
+to have lots of different logins for various users, bind mount your own file to
+`/user.passwd` and the container will use that instead.
 
 If using `Basic` authentication, run the following commands:
 
