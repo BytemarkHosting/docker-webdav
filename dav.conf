@@ -1,0 +1,25 @@
+DavLockDB "/var/lib/dav/DavLock"
+Alias / "/var/lib/dav/data/"
+<Directory "/var/lib/dav/data/">
+  Dav On
+  Options Indexes FollowSymLinks
+
+  AuthType Basic
+  AuthName "WebDAV"
+  AuthUserFile "/user.passwd"
+  <RequireAny>
+    Require valid-user
+  </RequireAny>
+</Directory>
+
+# These disable redirects on non-GET requests for directories that
+# don't include the trailing slash (for misbehaving clients).
+BrowserMatch "Microsoft Data Access Internet Publishing Provider" redirect-carefully
+BrowserMatch "MS FrontPage" redirect-carefully
+BrowserMatch "^WebDrive" redirect-carefully
+BrowserMatch "^WebDAVFS/1.[01234]" redirect-carefully
+BrowserMatch "^gnome-vfs/1.0" redirect-carefully
+BrowserMatch "^XML Spy" redirect-carefully
+BrowserMatch "^Dreamweaver-WebDAV-SCM1" redirect-carefully
+BrowserMatch " Konqueror/4" redirect-carefully
+BrowserMatch "^gvfs" redirect-carefully
