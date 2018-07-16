@@ -20,7 +20,6 @@ RUN set -ex; \
     # Create empty default DocumentRoot.
     mkdir -p "/var/www/html"; \
     # Create directories for Dav data and lock database.
-    mkdir -p "/var/lib/dav"; \
     mkdir -p "/var/lib/dav/data"; \
     touch "/var/lib/dav/DavLock"; \
     chown -R www-data:www-data "/var/lib/dav"; \
