@@ -92,10 +92,12 @@ fi
 if [ -e /privkey.pem ] && [ -e /cert.pem ]; then
     # Enable SSL Apache modules.
     for i in http2 ssl; do
-        sed -i -e "/^#LoadModule ${i}_module.*/s/^#//" "$HTTPD_PREFIX/conf/httpd.conf"
+        sed -e "/^#LoadModule ${i}_module.*/s/^#//" \
+            -i "$HTTPD_PREFIX/conf/httpd.conf"
     done
     # Enable SSL vhost.
-    ln -sf ../sites-available/default-ssl.conf "$HTTPD_PREFIX/conf/sites-enabled"
+    ln -sf ../sites-available/default-ssl.conf \
+        "$HTTPD_PREFIX/conf/sites-enabled"
 fi
 
 # Create directories for Dav data and lock database.
