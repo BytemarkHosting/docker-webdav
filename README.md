@@ -1,6 +1,6 @@
 ## Supported tags
 
-* [`2.4`, `latest` (*stretch/Dockerfile*)](https://github.com/BytemarkHosting/docker-webdav/blob/master/2.4/Dockerfile)
+* [`2.4`, `latest` (*2.4/Dockerfile*)](https://github.com/BytemarkHosting/docker-webdav/blob/master/2.4/Dockerfile)
 
 ## Quick reference
 
