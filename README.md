@@ -40,7 +40,7 @@ docker run --restart always -v /srv/dav:/var/lib/dav \
 ```
 version: '3'
 services:
-  mail:
+  webdav:
     image: bytemark/webdav
     restart: always
     ports:
