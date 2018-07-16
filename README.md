@@ -6,6 +6,9 @@
 
 This image runs an easily configurable WebDAV server with Apache.
 
+You can configure the authentication type, the authentication of multiple
+users, or to run with a self-signed SSL certificate.
+
 * **Code repository:**
   https://github.com/BytemarkHosting/docker-webdav
 * **Where to file issues:**
@@ -19,7 +22,8 @@ This image runs an easily configurable WebDAV server with Apache.
 
 ### Basic WebDAV server
 
-This example starts a WebDAV server.
+This example starts a WebDAV server on port 80. It can only be accessed by
+a single username and password.
 
 When using unencrypted HTTP, use `Digest` authentication (instead of `Basic`)
 to avoid sending plaintext passwords in the clear.
@@ -66,6 +70,9 @@ docker run --restart always -v /srv/dav:/var/lib/dav \
     -e SSL_CERT=selfsigned --publish 443:443 -d bytemark/webdav
 
 ```
+
+If you bind mount a certificate chain to `/cert.pem` and a private key to
+`/privkey.pem`, the container will use that instead!
 
 ### Authenticate multiple clients
 

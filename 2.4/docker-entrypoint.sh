@@ -74,25 +74,27 @@ if [ "x$ANONYMOUS_METHODS" != "x" ]; then
     fi
 fi
 
-case "${SSL_CERT:-none}" in
-    "selfsigned")
-        # Generate self-signed SSL certificate.
-        # If SERVER_NAMES is given, use the first domain as the Common Name.
-        if [ ! -e /privkey.pem ] || [ ! -e /cert.pem ]; then
-            apk add --no-cache openssl
-            openssl req -x509 -newkey rsa:2048 -days 1000 -nodes \
-                -keyout /privkey.pem -out /cert.pem -subj "/CN=${SERVER_NAME:-selfsigned}"
-            apk del --no-cache openssl
-        fi
-        # Enable SSL Apache modules.
-        for i in http2 ssl; do
-            sed -i -e "/^#LoadModule ${i}_module.*/s/^#//" "$HTTPD_PREFIX/conf/httpd.conf"
-        done
-        # Enable SSL vhost.
-        if [ -e /privkey.pem ] && [ -e /cert.pem ]; then
-            ln -s ../sites-available/default-ssl.conf "$HTTPD_PREFIX/conf/sites-enabled"; \
-        fi
-        ;;
-esac
+# If specified, generate a selfsigned certificate.
+if [ "${SSL_CERT:-none}" = "selfsigned" ]; then
+    # Generate self-signed SSL certificate.
+    # If SERVER_NAMES is given, use the first domain as the Common Name.
+    if [ ! -e /privkey.pem ] || [ ! -e /cert.pem ]; then
+        apk add --no-cache openssl
+        openssl req -x509 -newkey rsa:2048 -days 1000 -nodes \
+            -keyout /privkey.pem -out /cert.pem -subj "/CN=${SERVER_NAME:-selfsigned}"
+        apk del --no-cache openssl
+    fi
+fi
+
+# This will either be the self-signed certificate generated above or one that
+# has been bind mounted in by the user.
+if [ -e /privkey.pem ] && [ -e /cert.pem ]; then
+    # Enable SSL Apache modules.
+    for i in http2 ssl; do
+        sed -i -e "/^#LoadModule ${i}_module.*/s/^#//" "$HTTPD_PREFIX/conf/httpd.conf"
+    done
+    # Enable SSL vhost.
+    ln -s ../sites-available/default-ssl.conf "$HTTPD_PREFIX/conf/sites-enabled"; \
+fi
 
 exec "$@"
