@@ -6,7 +6,7 @@
 
 This image runs an easily configurable WebDAV server with Apache.
 
-You can configure the authentication type, the authentication of multiple users, or to run with a self-signed SSL certificate.
+You can configure the authentication type, the authentication of multiple users, or to run with a self-signed SSL certificate. If you want a Let's Encrypt certificate, see an example of how to do that [here](https://github.com/BytemarkHosting/configs-webdav-docker).
 
 * **Code repository:**
   https://github.com/BytemarkHosting/docker-webdav
@@ -54,7 +54,7 @@ services:
 ```
 ### Secure WebDAV with SSL
 
-We recommend you use a reverse proxy (eg, Traefik) to handle SSL certificates.
+We recommend you use a reverse proxy (eg, Traefik) to handle SSL certificates. You can see an example of how to do that [here](https://github.com/BytemarkHosting/configs-webdav-docker).
 
 If you're happy with a self-signed SSL certificate, specify `-e SSL_CERT=selfsigned` and the container will generate one for you.
 
