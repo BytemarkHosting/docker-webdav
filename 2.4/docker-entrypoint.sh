@@ -69,6 +69,7 @@ if [ "x$ANONYMOUS_METHODS" != "x" ]; then
         sed -e "s/Require valid-user/Require all granted/" \
             -i "$HTTPD_PREFIX/conf/conf-available/dav.conf"
     else
+        ANONYMOUS_METHODS="`printf '%s\n' "$ANONYMOUS_METHODS" | tr ',' ' '`"
         sed -e "/Require valid-user/a\ \ \ \ Require method $ANONYMOUS_METHODS" \
             -i "$HTTPD_PREFIX/conf/conf-available/dav.conf"
     fi
