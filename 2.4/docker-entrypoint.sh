@@ -80,10 +80,8 @@ if [ "${SSL_CERT:-none}" = "selfsigned" ]; then
     # Generate self-signed SSL certificate.
     # If SERVER_NAMES is given, use the first domain as the Common Name.
     if [ ! -e /privkey.pem ] || [ ! -e /cert.pem ]; then
-        apk add --no-cache openssl
         openssl req -x509 -newkey rsa:2048 -days 1000 -nodes \
             -keyout /privkey.pem -out /cert.pem -subj "/CN=${SERVER_NAME:-selfsigned}"
-        apk del --no-cache openssl
     fi
 fi
 

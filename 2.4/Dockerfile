@@ -45,7 +45,9 @@ RUN set -ex; \
     mkdir -p "$HTTPD_PREFIX/conf/conf-enabled"; \
     mkdir -p "$HTTPD_PREFIX/conf/sites-enabled"; \
     ln -s ../conf-available/dav.conf "$HTTPD_PREFIX/conf/conf-enabled"; \
-    ln -s ../sites-available/default.conf "$HTTPD_PREFIX/conf/sites-enabled"
+    ln -s ../sites-available/default.conf "$HTTPD_PREFIX/conf/sites-enabled"; \
+    # Install openssl if we need to generate a self-signed certificate.
+    apk add --no-cache openssl
 
 COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
 EXPOSE 80/tcp 443/tcp
