@@ -1,5 +1,4 @@
 FROM httpd:alpine
-MAINTAINER Bytemark Hosting "support@bytemark.co.uk"
 
 # This variable is inherited from httpd:alpine image:
 # ENV HTTPD_PREFIX /usr/local/apache2
