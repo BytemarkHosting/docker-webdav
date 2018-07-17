@@ -4,17 +4,8 @@ MAINTAINER Bytemark Hosting "support@bytemark.co.uk"
 # This variable is inherited from httpd:alpine image:
 # ENV HTTPD_PREFIX /usr/local/apache2
 
-RUN set -ex; \
-    # Create Debian-style subdirectories.
-    mkdir -p "$HTTPD_PREFIX/conf/conf-available"; \
-    mkdir -p "$HTTPD_PREFIX/conf/conf-enabled"; \
-    mkdir -p "$HTTPD_PREFIX/conf/sites-available"; \
-    mkdir -p "$HTTPD_PREFIX/conf/sites-enabled"
-
 # Copy in our configuration files.
-COPY dav.conf "$HTTPD_PREFIX/conf/conf-available"
-COPY default.conf "$HTTPD_PREFIX/conf/sites-available"
-COPY default-ssl.conf "$HTTPD_PREFIX/conf/sites-available"
+COPY conf/ "$HTTPD_PREFIX/conf/"
 
 RUN set -ex; \
     # Create empty default DocumentRoot.
@@ -51,6 +42,8 @@ RUN set -ex; \
         >> "$HTTPD_PREFIX/conf/httpd.conf"; \
     \
     # Enable dav and default site.
+    mkdir -p "$HTTPD_PREFIX/conf/conf-enabled"; \
+    mkdir -p "$HTTPD_PREFIX/conf/sites-enabled"; \
     ln -s ../conf-available/dav.conf "$HTTPD_PREFIX/conf/conf-enabled"; \
     ln -s ../sites-available/default.conf "$HTTPD_PREFIX/conf/sites-enabled"
 
