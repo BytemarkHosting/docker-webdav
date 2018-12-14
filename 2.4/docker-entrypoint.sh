@@ -29,7 +29,7 @@ fi
 
 # Configure dav.conf
 if [ "x$LOCATION" != "x" ]; then
-    sed -e "s|Alias /|Alias $LOCATION|" \
+    sed -e "s|Alias .*|Alias $LOCATION /var/lib/dav/data/|" \
         -i "$HTTPD_PREFIX/conf/conf-available/dav.conf"
 fi
 if [ "x$REALM" != "x" ]; then
