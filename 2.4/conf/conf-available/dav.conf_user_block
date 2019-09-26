@@ -1,0 +1,18 @@
+# $user \
+    Alias $Location$user "/var/lib/dav/data/$user/"\
+ \
+    <Directory "/var/lib/dav/data/$user/">\
+        Dav             On\
+        AuthType        Basic\
+        AuthName        "WebDAV"\
+        AuthUserFile    "/user.passwd"\
+	<RequireAny>\
+	        Require         valid-user \
+	</RequireAny>\
+    </Directory>\
+\
+    <Location "/$user/">\
+        Require    user $user\
+    </Location>\
+\
+\
