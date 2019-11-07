@@ -3,10 +3,11 @@ services:
   webdav:
     build:
       context: ./2.4/
+#    image: bytemark/webdav
     container_name: webdav
     restart: always
-    ports:
-      - "80:80"
+#    ports:
+#      - "80:80"
     environment:
       AUTH_TYPE: Digest
       SERVER_NAMES: webdav.docker.lab
@@ -15,17 +16,17 @@ services:
     volumes:
       - ./data:/var/lib/dav
       - ./user.passwd:/user.passwd
-#    labels:
-#      - "traefik.backend=webdav"
-#      - "traefik.enable=true"
-#      - "traefik.frontend.rule=Host:webdav.docker.lab"
-#      - "traefik.port=80"
-#      - "traefik.docker.network=traefik_proxy"
-#    networks:
-#      - traefik_proxy
-#
-#networks:
-#  traefik_proxy:
-#    external:
-#      name: traefik_proxy
+    labels:
+      - "traefik.backend=webdav"
+      - "traefik.enable=true"
+      - "traefik.frontend.rule=Host:webdav.docker.lab"
+      - "traefik.port=80"
+      - "traefik.docker.network=traefik_proxy"
+    networks:
+      - traefik_proxy
+
+networks:
+  traefik_proxy:
+    external:
+      name: traefik_proxy
       
