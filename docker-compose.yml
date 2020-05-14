@@ -6,7 +6,7 @@ services:
       context: ./2.4/
 #    image: bytemark/webdav
     container_name: webdav
-    restart: always
+    restart: unless-stopped
 #    ports:
 #      - "80:80"
     environment:
