@@ -89,7 +89,7 @@ fi
 # has been bind mounted in by the user.
 if [ -e /privkey.pem ] && [ -e /cert.pem ]; then
     # Enable SSL Apache modules.
-    for i in http2 ssl; do
+    for i in http2 ssl socache_shmcb; do
         sed -e "/^#LoadModule ${i}_module.*/s/^#//" \
             -i "$HTTPD_PREFIX/conf/httpd.conf"
     done
