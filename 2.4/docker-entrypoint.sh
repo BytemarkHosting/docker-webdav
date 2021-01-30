@@ -10,9 +10,13 @@ set -e
 #   PASSWORD
 #   ANONYMOUS_METHODS
 #   SSL_CERT
+#   PUID
+#   PGID
 
 # Just in case this environment variable has gone missing.
 HTTPD_PREFIX="${HTTPD_PREFIX:-/usr/local/apache2}"
+PUID=${PUID:-1000}
+PGID=${PGID:-1000}
 
 # Configure vhosts.
 if [ "x$SERVER_NAMES" != "x" ]; then
@@ -98,9 +102,17 @@ if [ -e /privkey.pem ] && [ -e /cert.pem ]; then
         "$HTTPD_PREFIX/conf/sites-enabled"
 fi
 
+# add PUID:PGID, ignore error
+addgroup -g $PGID -S user-group 1>/dev/null || true
+adduser -u $PUID -S user 1>/dev/null || true
+
+# Run httpd as PUID:PGID
+sed -i -e "s|^User .*|User #$PUID|" "$HTTPD_PREFIX/conf/httpd.conf"; 
+sed -i -e "s|^Group .*|Group #$PGID|" "$HTTPD_PREFIX/conf/httpd.conf"; 
+
 # Create directories for Dav data and lock database.
 [ ! -d "/var/lib/dav/data" ] && mkdir -p "/var/lib/dav/data"
 [ ! -e "/var/lib/dav/DavLock" ] && touch "/var/lib/dav/DavLock"
-chown -R www-data:www-data "/var/lib/dav"
+chown -R $PUID:$PGID "/var/lib/dav"
 
 exec "$@"
