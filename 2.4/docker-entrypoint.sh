@@ -113,6 +113,6 @@ sed -i -e "s|^Group .*|Group #$PGID|" "$HTTPD_PREFIX/conf/httpd.conf";
 # Create directories for Dav data and lock database.
 [ ! -d "/var/lib/dav/data" ] && mkdir -p "/var/lib/dav/data"
 [ ! -e "/var/lib/dav/DavLock" ] && touch "/var/lib/dav/DavLock"
-chown -R $PUID:$PGID "/var/lib/dav"
+chown $PUID:$PGID "/var/lib/dav/DavLock"
 
 exec "$@"
