@@ -12,6 +12,7 @@ set -e
 #   SSL_CERT
 #   PUID
 #   PGID
+#   PUMASK
 
 # Just in case this environment variable has gone missing.
 HTTPD_PREFIX="${HTTPD_PREFIX:-/usr/local/apache2}"
@@ -114,5 +115,10 @@ sed -i -e "s|^Group .*|Group #$PGID|" "$HTTPD_PREFIX/conf/httpd.conf";
 [ ! -d "/var/lib/dav/data" ] && mkdir -p "/var/lib/dav/data"
 [ ! -e "/var/lib/dav/DavLock" ] && touch "/var/lib/dav/DavLock"
 chown $PUID:$PGID "/var/lib/dav/DavLock"
+
+# Set umask
+if [ "x$PUMASK" != "x" ]; then
+    umask $PUMASK
+fi
 
 exec "$@"
