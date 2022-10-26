@@ -1,19 +1,19 @@
 ## Supported tags
 
-* [`2.4`, `latest` (*2.4/Dockerfile*)](https://github.com/BytemarkHosting/docker-webdav/blob/master/2.4/Dockerfile)
+* [`httpd-2.4`, `latest` (*httpd-2.4/Dockerfile*)](https://github.com/yebo29/docker-webdav/blob/master/httpd-2.4/Dockerfile)
 
 ## Quick reference
+
+This is a fork of [ByteMarkHosting-docker-webdav](https://github.com/BytemarkHosting/docker-webdav)
 
 This image runs an easily configurable WebDAV server with Apache.
 
 You can configure the authentication type, the authentication of multiple users, or to run with a self-signed SSL certificate. If you want a Let's Encrypt certificate, see an example of how to do that [here](https://github.com/BytemarkHosting/configs-webdav-docker).
 
 * **Code repository:**
-  https://github.com/BytemarkHosting/docker-webdav
+  https://github.com/yebo29/docker-webdav
 * **Where to file issues:**
-  https://github.com/BytemarkHosting/docker-webdav/issues
-* **Maintained by:**
-  [Bytemark Hosting](https://www.bytemark.co.uk)
+  https://github.com/yebo29/docker-webdav/issues
 * **Supported architectures:**
   [Any architecture that the `httpd` image supports](https://hub.docker.com/_/httpd/)
 
@@ -108,5 +108,3 @@ All environment variables are optional. You probably want to at least specify `U
 * **`SSL_CERT`**: Set to `selfsigned` to generate a self-signed certificate and enable Apache's SSL module. If you specify `SERVER_NAMES`, the first domain is set as the Common Name.
 * **`PUID`**: file owner's UID of `/var/lib/dav`
 * **`PGID`**: file owner's GID of `/var/lib/dav`
-
-
