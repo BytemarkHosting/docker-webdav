@@ -1,10 +1,9 @@
-version: '3'
+version: '3.5'
 
 services:
   webdav:
     build:
-      context: ./2.4/
-#    image: bytemark/webdav
+      context: ./httpd-2.4/
     container_name: webdav
     restart: unless-stopped
 #    ports:
